@@ -6,12 +6,11 @@ from pandas_datareader import data as pdr
 
 yf.pdr_override()
 
-stock = input("Enter a stock ticker symbol: ")
-print(stock)
-
-startyear = 2020
-startmonth = 1
-startday = 1
+stock = (input("Enter a stock ticker symbol: ")).upper()
+print(f"Getting data for {stock} from:")
+startyear = int(input("Year: "))
+startmonth = int(input("Month: "))
+startday = int(input("Day: "))
 
 start = dt.datetime(startyear, startmonth, startday)
 
