@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PowerConsumption {
+public class Oxygen {
     
     public static void main(String[] args) throws FileNotFoundException {
         File file = new File("code_advent/Day_3/input.txt");
@@ -15,14 +15,15 @@ public class PowerConsumption {
         while(sc.hasNext()){
             list.add(sc.next());
         }
+        ArrayList<String> oxyG = new ArrayList<>(list);
         
-        String epsilon = "";
-        String gamma = "";
         for(int i = 0; i < list.get(0).length(); i++) {
             int one = 0;
             int zero = 0;
+
+            ArrayList<String> copy = new ArrayList<>(oxyG);
             
-            for(String s: list){
+            for(String s: copy){
                 char nbr = s.charAt(i);
                 if(nbr == '1'){
                     one++;
@@ -32,18 +33,22 @@ public class PowerConsumption {
             }
 
             if(zero <= one){
-                gamma += "1";
-                epsilon += "0";
-                
+                for(String s: copy){
+                    if(s.charAt(i) == '0' && oxyG.size() > 1){
+                        oxyG.remove(s);
+                    }
+                }
             } else {
-                gamma += "0";
-                epsilon += "1";
-                
+                for(String s: copy){
+                    if(s.charAt(i) == '1' && oxyG.size() > 1){
+                        oxyG.remove(s);
+                    }
+                }
             }
         }
         sc.close();
-        System.out.println("gamma:" + gamma + " epsilon:" + epsilon);
-        System.out.println("gamma in decimal: " + Integer.parseInt(gamma, 2) + " epsilon in decimal: " + Integer.parseInt(epsilon, 2));
-        System.out.println("with product: " + Integer.parseInt(gamma, 2)*Integer.parseInt(epsilon, 2));
+        System.out.println("Oxygen: " + oxyG + " " + Integer.parseInt(oxyG.get(0), 2));
+
+
     }
 }
